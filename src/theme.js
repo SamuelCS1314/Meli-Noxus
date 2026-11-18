@@ -91,7 +91,7 @@ export const tokens = (mode) => ({
           100: "oklch(22.5% 0.037 267.238)",
           200: "oklch(29.1% 0.036 259.421)",
           300: "oklch(38.5% 0.037 262.306)",
-          400: "oklch(45.6% 0.032 259.375)",
+          400: "#f2f0f0",
           500: "oklch(55.9% 0.029 266.937)",
           600: "oklch(71.4% 0.024 263.898)",
           700: "oklch(87.7% 0.011 260.911)",
@@ -141,3 +141,99 @@ export const tokens = (mode) => ({
         },
       }),
 });
+
+// mui theme settings
+export const themeSettings = (mode) => {
+   const color = tokens(mode);
+  return{
+    palette: {
+      mode: mode,
+      ...(mode === "dark"
+        ? {
+          primary: {
+            main: colors.primary[500],
+          },
+          secondary: {
+            main: colors.greenAccent[500],
+          },
+          neutral: {
+            dark: colors.gray[700],
+            main: colors.gray[500],
+            light: colors.gray[100],
+          },
+          background: {
+            default: colors.primary[500],
+          }
+        } : {
+          primary: {
+            main: colors.primary[500],
+          },
+          secondary: {
+            main: colors.greenAccent[500],
+          },
+          neutral: {
+            dark: colors.gray[700],
+            main: colors.gray[500],
+            light: colors.gray[100],
+          },
+          background: {
+            default: "#fcfcfc",
+          }
+        }),
+    },
+    typography: {
+      fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+      fontSize: 12,
+      h1:{
+        fontFamily:["Source Sans Pro", "sans-serif"].join(","),
+        fontSize: 40,
+      },
+      h1:{
+        fontFamily:["Source Sans Pro", "sans-serif"].join(","),
+        fontSize: 40,
+      },
+      h2:{
+        fontFamily:["Source Sans Pro", "sans-serif"].join(","),
+        fontSize: 32,
+      },
+      h3:{
+        fontFamily:["Source Sans Pro", "sans-serif"].join(","),
+        fontSize: 24,
+      },
+      h4:{
+        fontFamily:["Source Sans Pro", "sans-serif"].join(","),
+        fontSize: 20,
+      },
+      h5:{
+        fontFamily:["Source Sans Pro", "sans-serif"].join(","),
+        fontSize: 16,
+      },
+      h6:{
+        fontFamily:["Source Sans Pro", "sans-serif"].join(","),
+        fontSize: 14,
+      },
+
+   }
+  }
+}
+
+// context for color mode
+export const ColorModeContext = createContext ({ 
+  toggleColorMode: () => {}
+});
+
+export const useMode = () => {
+  const [mode, setMode] = useState("dark");
+
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () =>
+        setMode ((prev) => (prev === "light" ? "dark" : "light")),
+    }),
+    []
+  );
+
+  const theme = useMemo(() => createTheme(themeSettings(mode)),  [mode])
+
+  return [theme, colorMode];
+}
