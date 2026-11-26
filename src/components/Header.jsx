@@ -2,7 +2,7 @@ import { Navbar, Container, Form, Image } from "react-bootstrap";
 import "./style/Header.css";
 
 // Troque pelo caminho do logo do seu projeto
-import logo from "./assets/mercado-livre-logo.png";
+import logo from "../assets/logo_mercado_livre.png";
 
 export default function Header({
   userLabel = "TA Ops · Talent Attraction",
